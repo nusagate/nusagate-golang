@@ -22,14 +22,20 @@ type ReqGetInvoiceList struct {
 	Search   string `json:"search"`
 }
 
-type ReqWithdrawal struct {
+type ReqCreateTransfer struct {
+	ExternalID   string  `json:"externalId"`
 	Address      string  `json:"address"`
 	Amount       float64 `json:"amount"`
 	CurrencyCode string  `json:"currencyCode"`
 }
 
+type ReqTransfer struct {
+	Address      string  `json:"address"`
+	Amount       float64 `json:"amount"`
+	CurrencyCode string  `json:"currencyCode"`
+}
 
-type ReqGetWithdrawalList struct {
+type ReqGetTransferList struct {
 	Page     string `json:"page"`
 	PerPage  string `json:"perPage"`
 	FromDate string `json:"fromDate"`

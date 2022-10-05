@@ -15,10 +15,6 @@ type Error struct {
 	//RawApiResponse *ApiResponse `json:"raw_api_response,omitempty"`
 }
 
-//func (e *Error) Error() string {
-//	return e.Message
-//}
-
 func (e *Error) GetStatus() int {
 	return e.Status
 }
@@ -31,9 +27,6 @@ func ErrorGo(err error) *Error {
 	}
 }
 
-func ErrorBiteship(err *Error) *Error {
-	return err
-}
 
 func ErrorRequestParam(err error) *Error {
 	return &Error{

@@ -85,25 +85,26 @@ type ResVoidInvoice struct {
 	} `json:"data"`
 }
 
-type ResCreateWithdrawal struct {
+type ResCreateTransfer struct {
 	Data struct {
 		ReferenceId    string  `json:"referenceId"`
-		FeeWithdrawal  float64 `json:"feeWithdrawal"`
+		FeeTransfer    float64 `json:"feeTransfer"`
 		ReceivedAmount float64 `json:"receivedAmount"`
 	} `json:"data"`
 }
 
-type ResCalculateWithdrawal struct {
+type ResCalculateTransfer struct {
 	Data struct {
-		FeeWithdrawal  int     `json:"feeWithdrawal"`
+		FeeTransfer    int     `json:"feeTransfer"`
 		ReceivedAmount float64 `json:"receivedAmount"`
 	} `json:"data"`
 }
 
-type ResGetWithdrawalList struct {
+type ResGetTransferList struct {
 	Data []struct {
 		Id             string     `json:"id"`
 		Slug           string     `json:"slug"`
+		ExternalID     string     `json:"extenalId"`
 		Status         string     `json:"status"`
 		Amount         float64    `json:"amount"`
 		Fee            float64    `json:"fee"`
@@ -116,10 +117,11 @@ type ResGetWithdrawalList struct {
 	} `json:"data"`
 }
 
-type ResGetWithdrawalDetail struct {
+type ResGetTransferDetail struct {
 	Data struct {
 		Id             string    `json:"id"`
 		Slug           string    `json:"slug"`
+		ExternalID     string    `json:"extenalId"`
 		Status         string    `json:"status"`
 		Amount         float64   `json:"amount"`
 		Fee            float64   `json:"fee"`

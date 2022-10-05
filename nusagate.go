@@ -2,23 +2,22 @@ package nusagate
 
 import (
 	"fmt"
+
 	"github.com/go-playground/validator/v10"
 )
 
-
 var validate *validator.Validate
-
 
 type Nusagate interface {
 	CreateInvoice(request *ReqCreateInvoice) (*ResCreateInvoice, *Error)
-	GetInvoiceById(invoiceId string) (*ResGetInvoiceDetail, *Error)
+	GetInvoiceById(id string) (*ResGetInvoiceDetail, *Error)
 	GetInvoices(query *ReqGetInvoiceList) (*ResGetInvoiceList, *Error)
-	VoidInvoice(invoiceId string) (*ResVoidInvoice, *Error)
+	VoidInvoice(id string) (*ResVoidInvoice, *Error)
 
-	CreateWithdrawal(request *ReqWithdrawal) (*ResCreateWithdrawal, *Error)
-	GetWithdrawalById(withdrawalId string) (*ResGetWithdrawalDetail, *Error)
-	GetWithdrawals(query *ReqGetWithdrawalList) (*ResGetWithdrawalList, *Error)
-	CalculateWithdrawal(request *ReqWithdrawal) (*ResCalculateWithdrawal, *Error)
+	CreateTransfer(request *ReqCreateTransfer) (*ResCreateTransfer, *Error)
+	GetTransferById(id string) (*ResGetTransferDetail, *Error)
+	GetTransfers(query *ReqGetTransferList) (*ResGetTransferList, *Error)
+	CalculateTransfer(request *ReqTransfer) (*ResCalculateTransfer, *Error)
 }
 
 type Impl struct {

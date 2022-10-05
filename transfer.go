@@ -4,16 +4,17 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/go-playground/validator/v10"
 	"log"
 	"net/http"
 	"reflect"
+
+	"github.com/go-playground/validator/v10"
 )
 
-func (nusagate *Impl) CreateWithdrawal(request *ReqWithdrawal) (*ResCreateWithdrawal, *Error) {
+func (nusagate *Impl) CreateTransfer(request *ReqCreateTransfer) (*ResCreateTransfer, *Error) {
 
-	resp := &ResCreateWithdrawal{}
-	var url = fmt.Sprintf("%s/v1/withdrawals/", nusagate.Config.BaseUrl)
+	resp := &ResCreateTransfer{}
+	var url = fmt.Sprintf("%s/v1/merchant-tranfers/", nusagate.Config.BaseUrl)
 	var errMarshal error
 	jsonRequest := []byte("")
 
@@ -41,13 +42,12 @@ func (nusagate *Impl) CreateWithdrawal(request *ReqWithdrawal) (*ResCreateWithdr
 	return resp, nil
 }
 
+func (nusagate *Impl) GetTransferById(withdrawalId string) (*ResGetTransferDetail, *Error) {
 
-func (nusagate *Impl) GetWithdrawalById(withdrawalId string) (*ResGetWithdrawalDetail, *Error) {
+	resp := &ResGetTransferDetail{}
+	var url = fmt.Sprintf("%s/v1/merchant-tranfers/%s", nusagate.Config.BaseUrl, withdrawalId)
 
-	resp := &ResGetWithdrawalDetail{}
-	var url = fmt.Sprintf("%s/v1/withdrawals/%s", nusagate.Config.BaseUrl, withdrawalId)
-
-	errRequest := nusagate.HttpRequest.Call(http.MethodGet, url,nusagate.Config.ApiKey, nusagate.Config.SecretKey, nil, resp)
+	errRequest := nusagate.HttpRequest.Call(http.MethodGet, url, nusagate.Config.ApiKey, nusagate.Config.SecretKey, nil, resp)
 	if errRequest != nil {
 		return resp, errRequest
 	}
@@ -55,12 +55,12 @@ func (nusagate *Impl) GetWithdrawalById(withdrawalId string) (*ResGetWithdrawalD
 	return resp, nil
 }
 
-func (nusagate *Impl) GetWithdrawals(query *ReqGetWithdrawalList) (*ResGetWithdrawalList, *Error) {
+func (nusagate *Impl) GetTransfers(query *ReqGetTransferList) (*ResGetTransferList, *Error) {
 
-	resp := &ResGetWithdrawalList{}
-	var url = fmt.Sprintf("%s/v1/withdrawals?page=%s&perPage=%s&fromDate=%s&toDate=%s&status=%s", nusagate.Config.BaseUrl, query.Page, query.PerPage, query.FromDate, query.ToDate, query.Status)
+	resp := &ResGetTransferList{}
+	var url = fmt.Sprintf("%s/v1/merchant-tranfers?page=%s&perPage=%s&fromDate=%s&toDate=%s&status=%s", nusagate.Config.BaseUrl, query.Page, query.PerPage, query.FromDate, query.ToDate, query.Status)
 
-	errRequest := nusagate.HttpRequest.Call(http.MethodGet, url,nusagate.Config.ApiKey, nusagate.Config.SecretKey, nil, resp)
+	errRequest := nusagate.HttpRequest.Call(http.MethodGet, url, nusagate.Config.ApiKey, nusagate.Config.SecretKey, nil, resp)
 	if errRequest != nil {
 		return resp, errRequest
 	}
@@ -68,11 +68,10 @@ func (nusagate *Impl) GetWithdrawals(query *ReqGetWithdrawalList) (*ResGetWithdr
 	return resp, nil
 }
 
+func (nusagate *Impl) CalculateTransfer(request *ReqTransfer) (*ResCalculateTransfer, *Error) {
 
-func (nusagate *Impl) CalculateWithdrawal(request *ReqWithdrawal) (*ResCalculateWithdrawal, *Error) {
-
-	resp := &ResCalculateWithdrawal{}
-	var url = fmt.Sprintf("%s/v1/withdrawals/calculate", nusagate.Config.BaseUrl)
+	resp := &ResCalculateTransfer{}
+	var url = fmt.Sprintf("%s/v1/merchant-tranfers/calculate", nusagate.Config.BaseUrl)
 	var errMarshal error
 	jsonRequest := []byte("")
 
